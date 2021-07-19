@@ -1,6 +1,7 @@
 package com.spotts.mongodb_demo;
 
 import com.mongodb.MongoClient;
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
@@ -9,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import javax.print.Doc;
 
 @Component
 public class DatabaseService {
@@ -57,8 +59,20 @@ public class DatabaseService {
         log.info("Updated model from " + model + " to " + newModel + ".");
     }
 
+    public FindIterable<Document> readDocument(String collectionName, String model) {
+        MongoCollection<Document> collection = mongoDatabase.getCollection(collectionName);
+        Document searchQuery = new Document();
+        searchQuery.put("model", model);
+        return collection.find(searchQuery);
+    }
+
     public void createCollection(String collectionName) {
         mongoDatabase.createCollection(collectionName);
         log.info("Created collection " + collectionName);
+    }
+
+    public void deleteDocument(Document document, String collectionName) {
+        MongoCollection<Document> collection = mongoDatabase.getCollection(collectionName);
+        collection.deleteOne(document);
     }
 }
