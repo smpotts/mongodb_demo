@@ -2,6 +2,7 @@ package com.spotts.mongodb_demo.service;
 
 import com.mongodb.client.MongoCollection;
 import com.spotts.mongodb_demo.model.Car;
+import com.spotts.mongodb_demo.model.Color;
 import com.spotts.mongodb_demo.model.Guitar;
 import com.spotts.mongodb_demo.model.GuitarType;
 import org.bson.Document;
@@ -32,23 +33,23 @@ public class DemoOperationsService {
     private static void loadCollection(MongoCollection<Document> collection){
         log.info("Loading the demo collection...");
         // create a few cars
-        Car rav4 = new Car(2011, "Toyota", "RAV4", "silver", 12000, 92000);
+        Car rav4 = new Car(2011, "Toyota", "RAV4", Color.SILVER, 12000, 92000);
         databaseService.insertDocument(collection, rav4);
-        Car bug = new Car(2013, "VW", "Beetle", "black", 7500, 86000);
+        Car bug = new Car(2013, "VW", "Beetle", Color.BLACK, 7500, 86000);
         databaseService.insertDocument(collection, bug);
-        Car malibu = new Car(2011, "Chevy", "Malibu", "gold", 8500, 88000);
+        Car malibu = new Car(2011, "Chevy", "Malibu", Color.GOLD, 8500, 88000);
         databaseService.insertDocument(collection, malibu);
-        Car corvette = new Car(2021, "Chevy", "Corvette", "red", 93000, 7);
+        Car corvette = new Car(2021, "Chevy", "Corvette", Color.RED, 93000, 7);
         databaseService.insertDocument(collection, corvette);
 
         // create a few guitars
-        Guitar pennyStrat = new Guitar("Fender", "Stratocaster", 1000, GuitarType.ELECTRIC);
+        Guitar pennyStrat = new Guitar("Fender", "Stratocaster", 1000, Color.PENNY, GuitarType.ELECTRIC);
         databaseService.insertDocument(collection, pennyStrat);
-        Guitar tele = new Guitar("Fender", "Telecaster", 3500, GuitarType.ELECTRIC);
+        Guitar tele = new Guitar("Fender", "Telecaster", 3500, Color.BLUE, GuitarType.ELECTRIC);
         databaseService.insertDocument(collection, tele);
-        Guitar parlor = new Guitar("LAG", "Tramontane 270 PE", 300, GuitarType.ACOUSTIC);
+        Guitar parlor = new Guitar("LAG", "Tramontane 270 PE", 300, Color.BROWN, GuitarType.ACOUSTIC);
         databaseService.insertDocument(collection, parlor);
-        Guitar classical = new Guitar("Kremona", "Fiesta", 1500, GuitarType.CLASSICAL);
+        Guitar classical = new Guitar("Kremona", "Fiesta", 1500, Color.WHITE, GuitarType.CLASSICAL);
         databaseService.insertDocument(collection, classical);
     }
 }

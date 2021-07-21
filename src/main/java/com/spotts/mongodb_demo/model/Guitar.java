@@ -14,5 +14,6 @@ public class Guitar extends Item {
     private String make;
     private String model;
     private int price;
+    private Color color;
     private GuitarType guitarType;
 }
