@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * MongoDB Context.
+ * The MongoDB Context.
  */
 @Data
 @NoArgsConstructor

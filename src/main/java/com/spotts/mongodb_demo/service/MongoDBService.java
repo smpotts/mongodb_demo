@@ -5,7 +5,7 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.spotts.mongodb_demo.context.MongoDBContext;
-import com.spotts.mongodb_demo.model.Car;
+import com.spotts.mongodb_demo.model.Item;
 import org.bson.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,62 +44,51 @@ public class MongoDBService {
     }
 
     /**
-     * Inserts a new Car into the collection.
+     * Inserts a new Item into the collection.
      * @param collection The collection to add to.
-     * @param car The new Car.
+     * @param item a new Item.
      */
-    public void insertDocument(MongoCollection<Document> collection, Car car) {
+    public void insertDocument(MongoCollection<Document> collection, Item item) {
         Document newDocument = new Document();
-        newDocument.put("make", car.getMake());
-        newDocument.put("model", car.getModel());
-        newDocument.put("year", car.getYear());
-        newDocument.put("color", car.getColor());
-        newDocument.put("price", car.getPrice());
+        newDocument.put("item", item.toJson());
         collection.insertOne(newDocument);
-        log.info("Inserted new car:" + car.getMake() + ", " + car.getModel() + ", " + car.getYear() + ".");
+        log.info("Inserted a new document into the collection.");
     }
 
     /**
-     * Updates an old car with a new Car in the collection.
+     * Updates an old Item with a new Item in the collection.
      * @param collection The collection.
-     * @param oldCar The old Car.
-     * @param newCar The new Car.
+     * @param origItem The old Item.
+     * @param newItem The new Item.
      */
-    public void updateDocument(MongoCollection<Document> collection, Car oldCar, Car newCar) {
+    public void updateDocument(MongoCollection<Document> collection, Item origItem, Item newItem) {
         Document existingDoc = new Document();
-        existingDoc.put("make", oldCar.getMake());
-        existingDoc.put("model", oldCar.getModel());
-        existingDoc.put("year", oldCar.getYear());
-        existingDoc.put("color", oldCar.getColor());
-        existingDoc.put("price", oldCar.getPrice());
+        existingDoc.put("item", origItem.toJson());
 
         Document newDoc = new Document();
-        newDoc.put("make", newCar.getMake());
-        newDoc.put("model", newCar.getModel());
-        newDoc.put("year", newCar.getYear());
-        newDoc.put("color", newCar.getColor());
-        newDoc.put("price", newCar.getPrice());
+        newDoc.put("item", newItem.toJson());
 
         Document updatedDoc = new Document();
         updatedDoc.put("$set", newDoc);
 
         collection.updateOne(existingDoc, updatedDoc);
-        log.info("Updated a Car in the Collection.");
+        log.info("Updated a document in the collection.");
     }
 
     /**
-     * Deletes a document from a collection.
-     * @param document The Document to delete.
-     * @param collectionName The name of the collection to remove the document.
+     * Deletes Documents from a collection.
+     * @param collection The collection.
      */
-    public void deleteDocument(Document document, String collectionName) {
-        MongoCollection<Document> collection = mongoDatabase.getCollection(collectionName);
-        collection.deleteOne(document);
-        log.info("Deleted document from " + collectionName);
+    public void deleteDocuments(MongoCollection<Document> collection) {
+        FindIterable<Document> documents = collection.find();
+        for (Document d : documents) {
+            collection.deleteOne(d);
+        }
+        log.info("Documents deleted from the collection.");
     }
 
     /**
-     * Reads what is in a Document in a collection.
+     * Reads Documents in a collection.
      * @param collection The collection.
      */
     public void readDocument(MongoCollection<Document> collection) {
@@ -107,5 +96,6 @@ public class MongoDBService {
         for (Document d : documents) {
             System.out.println(d.toJson());
         }
+        log.info("All documents read.");
     }
 }
