@@ -7,11 +7,10 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @AllArgsConstructor
-public class Car extends Item {
-    private int year;
+public class Guitar extends Item {
     private String make;
     private String model;
-    private String color;
+    private String material;
     private int price;
-    private int mileage;
+    private GuitarType guitarType;
 }

@@ -21,7 +21,7 @@ public class MongodbDemoApplication {
 //		databaseService.saveUpdate("car_collection", "Mustang", "Bronco");
 
 		MongoCollection<Document> collection = databaseService.getCollection("car_collection");
-		Car newTruck = new Car("Toyota", "Tundra", 2021, "blue", 35000);
+//		Car newTruck = new Car("Toyota", "Tundra", 2021, "blue", 35000);
 	//	databaseService.insertDocument(collection, newTruck);
 //        FindIterable<Document> docs = databaseService.readDocument(collection);
 //
