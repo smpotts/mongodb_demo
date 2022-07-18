@@ -1,17 +1,17 @@
 # MongoDB Demo
 
-### Overview 
+## Overview 
 This is a demo project to learn how to set up a MongoDB database and interact with it using Java. The application creates a new collection, inserts test data (of two different object types) into it, reads from the collection and empties it at the end.
 
-#### Technologies
+### Technologies
 The project is written in Java (v. 11.0.8) using the Spring Boot framework (v. 2.4.5). It is using MongoDB as the database (3.12.9).
 
-#### Relevant Terminology
+### Relevant Terminology
 Collection - a collection is similar to a table in traditional database terms.
 
 Document - you put documents into a collection. A document is similar to a record, it's the data to be stored in the collection.
 
-#### Design
+### Design
 The project has a few components that orchestrate the demo:
 1. MongoDBContext.java: the context contains the default values for the database connection. It defaults to localhost and a test database called "java_test".
 2. MongoDBService.java: the service for database operations. The service establishes a database connection, creates collections and inserts, updates and deletes from the collection.
